@@ -1,0 +1,15 @@
+<taglib>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>2.0</jsp-version>
+  <short-name>Pruebas de paginacion</short-name>
+  <tag>
+    <name>Paginacion</name>
+    <tag-class>com.electronicos.tags.PaginacionTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+    <tag>
+    <name>CarritoDeCompras</name>
+    <tag-class>com.electronicos.tags.CarritoDeCompras</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+</taglib>
