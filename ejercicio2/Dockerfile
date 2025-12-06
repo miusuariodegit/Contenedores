@@ -10,7 +10,7 @@ RUN git clone https://github.com/miusuariodegit/Contenedores.git /repositorio
 # Copy the WAR file to the Tomcat webapps directory
 # Change "your-app.war" to the actual name of your WAR file
 
-RUN cp /repositorio/ejercicio2/aplicacion/PaginaElectronicos.war /usr/local/tomcat/webapps/PaginaElectronicos.war
+RUN cp /repositorio/ejercicio2/PaginaElectronicos.war /usr/local/tomcat/webapps/PaginaElectronicos.war
 #COPY /app/your-app.war /usr/local/tomcat/webapps/
 
 # Expose port 8080
