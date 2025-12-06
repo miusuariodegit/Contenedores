@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0 # Using a recent stable version of MySQL
@@ -28,9 +26,6 @@ services:
       MYSQL_PASS: mipassword
     depends_on:
       - db
-    volumes:
-      # Mount your compiled application (.war file) to the tomcat webapps directory
-      - ./aplicacion/PaginaElectronicos.war:/usr/local/tomcat/webapps/PaginaElectronicos.war
 
 volumes:
   db_data:
