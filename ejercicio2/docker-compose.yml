@@ -15,7 +15,10 @@ services:
 
   web:
     # Build the tomcat image from the Dockerfile in the current directory
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      no_cache: true
     container_name: tomcat_app
     ports:
       - "8080:8080"
