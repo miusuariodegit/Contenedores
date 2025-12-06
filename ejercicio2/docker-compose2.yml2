@@ -27,7 +27,7 @@ services:
     volumes:
       # Mount your application's .war file or webapp directory
       # Replace './path/to/your/webapp' with your actual local path
-      - /repositorio/paginaElectronicos/dist/PaginaElectronicos.war:/usr/local/tomcat/webapps/PaginaElectronicos.war # Deploys app to root context
+      - /repositorio/ejercicio2/PaginaElectronicos.war:/usr/local/tomcat/webapps/PaginaElectronicos.war # Deploys app to root context
     environment:
       # Pass database connection details to the application
       # 'db' is the hostname, which resolves to the 'db' service container

@@ -1,39 +1,36 @@
+version: '3.8'
 
 services:
-  mysql:
-    image: mysql:latest
+  db:
+    image: mysql:8.0 # Using a recent stable version of MySQL
+    container_name: mysql_db
     environment:
-      MYSQL_ROOT_PASSWORD: mipassword 
-      MYSQL_DATABASE: productosdb     
+      MYSQL_ROOT_PASSWORD: mipassword
+      MYSQL_DATABASE: productosdb
       MYSQL_USER: usuario             
-      MYSQL_PASSWORD: mipassword  
+      MYSQL_PASSWORD: mipassword 
     ports:
-      - "3306:3306"      
+      - "3306:3306"
     volumes:
-      - ./mysql-init-files:/docker-entrypoint-initdb.d  
-      - mysql_data:/var/lib/mysql
-    networks:
-      - mynetwork
+      - ./mysql-init-files:/docker-entrypoint-initdb.d 
+      - db_data:/var/lib/mysql # Persistent storage for MySQL data
 
-  tomcat:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  web:
+    # Build the tomcat image from the Dockerfile in the current directory
+    build: .
+    container_name: tomcat_app
     ports:
       - "8080:8080"
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_DATABASE: productosdb     
-      MYSQL_USER: usuario             
-      MYSQL_PASSWORD: mipassword    
+      # Use 'db' as the hostname, which is resolved by Docker's internal DNS
+      MYSQL_URL: jdbc:mysql://db:3306/productosdb?autoReconnect=true&useSSL=false
+      MYSQL_USER: usuario
+      MYSQL_PASS: mipassword
     depends_on:
-      - mysql
-    networks:
-      - mynetwork  
+      - db
+    volumes:
+      # Mount your compiled application (.war file) to the tomcat webapps directory
+      - ./aplicacion/PaginaElectronicos.war:/usr/local/tomcat/webapps/PaginaElectronicos.war
 
 volumes:
-  mysql_data:
-
-networks:
-  mynetwork:
-    driver: bridge  
+  db_data:
