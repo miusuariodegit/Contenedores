@@ -8,8 +8,20 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Enable Apache modules if needed (e.g., mod_rewrite)
 RUN a2enmod rewrite
 
+RUN apt-get update && apt-get install -y git
+
+# Clone the repository containing the WAR file
+RUN git clone https://github.com/miusuariodegit/Contenedores.git /repositorio
+
+# Copy the WAR file to the Tomcat webapps directory
+# Change "your-app.war" to the actual name of your WAR file
+
+RUN cp -r /repositorio/ejercicio3/aplicacion/crud100 /var/www/html
+#COPY /app/your-app.war /usr/local/tomcat/webapps/
+
+
 # Copy your application code into the webroot
-COPY ./aplicacion /var/www/html
+#COPY ./aplicacion /var/www/html
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
