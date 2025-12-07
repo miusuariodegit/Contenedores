@@ -17,8 +17,6 @@ RUN git clone https://github.com/miusuariodegit/Contenedores.git /repositorio
 # Change "your-app.war" to the actual name of your WAR file
 
 RUN cp -r /repositorio/ejercicio3/aplicacion/crud100 /var/www/html
-#COPY /app/your-app.war /usr/local/tomcat/webapps/
-
 
 # Copy your application code into the webroot
 #COPY ./aplicacion /var/www/html
