@@ -8,7 +8,7 @@ services:
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
     ports:
-      - "6666:3306"
+      - "3306:3306"
     volumes:
       - ./mysql-init-files:/docker-entrypoint-initdb.d 
       - db_python_app:/var/lib/mysql # Persistent storage for MySQL data
@@ -24,7 +24,7 @@ services:
       - "5600:5600"
     environment:
       # Use 'db' as the hostname, which is resolved by Docker's internal DNS
-      MYSQL_URL: jdbc:mysql://db:6666/crud_python?autoReconnect=true&useSSL=false
+      MYSQL_URL: jdbc:mysql://db:3306/crud_python?autoReconnect=true&useSSL=false
       MYSQL_USER: usuario
       MYSQL_PASS: mipassword
     depends_on:
