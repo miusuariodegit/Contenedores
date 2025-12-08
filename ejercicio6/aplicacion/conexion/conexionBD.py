@@ -9,7 +9,6 @@ def connectionBD():
         # connection = mysql.connector.connect(
         connection = mysql.connector.connect(
             host="db",
-            port=6666,
             user="usuario",
             passwd="mipassword",
             database="crud_python",
