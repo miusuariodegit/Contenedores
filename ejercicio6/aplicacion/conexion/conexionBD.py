@@ -14,6 +14,7 @@ def connectionBD():
             database="crud_python",
             charset='utf8mb4',
             collation='utf8mb4_unicode_ci',
+            port="6666",
             raise_on_warnings=True
 
         )
