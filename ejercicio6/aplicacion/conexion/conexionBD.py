@@ -9,12 +9,12 @@ def connectionBD():
         # connection = mysql.connector.connect(
         connection = mysql.connector.connect(
             host="db",
+            port=6666,
             user="usuario",
             passwd="mipassword",
             database="crud_python",
             charset='utf8mb4',
             collation='utf8mb4_unicode_ci',
-            port=6666,
             raise_on_warnings=True
 
         )
