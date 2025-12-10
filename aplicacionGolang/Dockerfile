@@ -1,27 +1,25 @@
-FROM golang:1.21-bullseye AS builder
+FROM ubuntu:24.04
+ENV GO_VERSION 1.20.5
+ENV GOPATH /go
+ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
+RUN apt-get update && \
+    apt-get install -y wget tar golang-go mailagent git && \
+    wget https://golang.org/dl/go$GO_VERSION.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz && \
+    rm go$GO_VERSION.linux-amd64.tar.gz && \
+    apt-get clean
+    
+    
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y git 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
-
-
-COPY go.mod go.sum ./
-RUN go mod download
+RUN cd ./aplicacionGolang/aplicacion
+RUN go mod init  
+RUN go get -u github.com/go-sql-driver/mysql
+RUN go get github.com/gorilla/mux
+RUN go run GolangCrud.go
 
 COPY . .
-
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags="-s -w" -o main .
-
-FROM ubuntu:22.04
-
-WORKDIR /app
-
-COPY --from=builder /app/main .
-
-EXPOSE 8090
-
-# Command to run the application when the container starts
-CMD ["./main"]
-
-
+RUN go build -o aplicacion .
+CMD ["./aplciaion"]
