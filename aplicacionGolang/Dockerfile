@@ -3,7 +3,7 @@ ENV GO_VERSION 1.20.5
 ENV GOPATH /go
 ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
 RUN apt-get update && \
-    apt-get install -y wget tar golang-go mailagent git && \
+    apt-get install -y wget tar golang-go mailagent git curl && \
     wget https://golang.org/dl/go$GO_VERSION.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz && \
     rm go$GO_VERSION.linux-amd64.tar.gz && \
@@ -14,12 +14,10 @@ RUN apt-get update && \
 WORKDIR /app
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
-RUN cd ./aplicacionGolang/aplicacion
-RUN go mod init  
+RUN cd /app/Contenedores/aplicacionGolang/aplicacion
+RUN go mod init /app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go
 RUN go get -u github.com/go-sql-driver/mysql
 RUN go get github.com/gorilla/mux
-RUN go run GolangCrud.go
 
-COPY . .
-RUN go build -o aplicacion .
-CMD ["./aplciaion"]
+RUN go build -o /app/Contenedores/aplicacionGolang/aplicacion/aplicacion /app/Contenedores/aplicacionGolang/aplicacion/
+CMD ["go","run","/app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go"]
