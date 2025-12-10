@@ -2,6 +2,10 @@ FROM golang:1.21-bullseye AS builder
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y git 
+RUN git clone https://github.com/miusuariodegit/Contenedores.git
+
+
 COPY go.mod go.sum ./
 RUN go mod download
 
