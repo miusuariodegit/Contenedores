@@ -43,7 +43,8 @@ func main() {
 
 
 func createUserHandler(w http.ResponseWriter, r *http.Request) {
-    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+    dsn := "usuario:mipassword@tcp(localhost:3306)/gocrud_app"
+    db, err := sql.Open("mysql", dsn)
     if err != nil {
       panic(err.Error())
     }
@@ -78,7 +79,8 @@ func CreateUser(db *sql.DB, name, email string) error {
 
 
 func getUserHandler(w http.ResponseWriter, r *http.Request) {
-    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+    dsn := "usuario:mipassword@tcp(localhost:3306)/gocrud_app"
+    db, err := sql.Open("mysql", dsn)
     if err != nil {
       panic(err.Error())
     }
@@ -131,7 +133,8 @@ func UpdateUser(db *sql.DB, id int, name, email string) error {
 
 
 func updateUserHandler(w http.ResponseWriter, r *http.Request) {
-    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+    dsn := "usuario:mipassword@tcp(localhost:3306)/gocrud_app"
+    db, err := sql.Open("mysql", dsn)
     if err != nil {
       panic(err.Error())
     }
@@ -160,7 +163,8 @@ func updateUserHandler(w http.ResponseWriter, r *http.Request) {
 
 
 func deleteUserHandler(w http.ResponseWriter, r *http.Request) {
-    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+    dsn := "usuario:mipassword@tcp(localhost:3306)/gocrud_app"
+    db, err := sql.Open("mysql", dsn)
     if err != nil {
       panic(err.Error())
     }
@@ -203,6 +207,7 @@ func DeleteUser(db *sql.DB, id int) error {
     }
     return nil
 }
+
 
 
 

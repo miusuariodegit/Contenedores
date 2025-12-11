@@ -14,8 +14,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
-RUN cd /app/Contenedores/aplicacionGolang/aplicacion
-
+RUN chmod 777 /app/Contenedores/aplicacionGolang/aplicacion/aplicacion
 #RUN go mod init /app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go
 #RUN go get -u github.com/go-sql-driver/mysql
 #RUN go get github.com/gorilla/mux
@@ -27,4 +26,4 @@ RUN cd /app/Contenedores/aplicacionGolang/aplicacion
 #RUN go build -o /app/Contenedores/aplicacionGolang/aplicacion/aplicacion /app/Contenedores/aplicacionGolang/aplicacion/
 
 
-CMD ["go","run","/app/Contenedores/aplicacionGolang/aplicacion/aplicacion"]
+CMD ["/app/Contenedores/aplicacionGolang/aplicacion/aplicacion"]
