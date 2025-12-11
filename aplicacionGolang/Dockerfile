@@ -16,8 +16,6 @@ WORKDIR /app
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
 
 RUN go mod init github.com/miusuariodegit/Contenedores/aplicacionGolang/aplicacion
-RUN go get -u github.com/go-sql-driver/mysql
-RUN go get github.com/gorilla/mux
 
 RUN go mod download
 RUN cp /app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go /app/GolangCrud.go 
@@ -26,11 +24,11 @@ RUN go build -o main .
 
 FROM ubuntu:24.04
 WORKDIR /app
-RUN apt update && apt install -y ca-certificates && \
+RUN apt update && apt install -y ca-certificates curl nano  && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/main .
 
-EXPOSE 8080
+EXPOSE 8090
 
 CMD ["./main"]
