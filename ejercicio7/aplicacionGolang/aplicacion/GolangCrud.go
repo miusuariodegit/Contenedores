@@ -34,7 +34,7 @@ func main() {
 
     // Start the HTTP server on port 8090
     log.Println("Server listening on :8090")
-    log.Fatal(http.ListenAndServe("0.0.0.0:8090", r))
+    log.Fatal(http.ListenAndServe(":8090", r))
 }
 
 func hello(w http.ResponseWriter, req *http.Request) {
