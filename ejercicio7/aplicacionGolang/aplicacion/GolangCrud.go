@@ -25,5 +25,8 @@ func main() {
 
     http.HandleFunc("/hello", hello)
     http.HandleFunc("/headers", headers)
+	// Start the HTTP server on port 8090
+    log.Println("Server listening on :8090")
+    
     http.ListenAndServe(":8090", nil)
 }
