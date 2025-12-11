@@ -15,9 +15,14 @@ WORKDIR /app
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
 RUN cd /app/Contenedores/aplicacionGolang/aplicacion
-RUN go mod init /app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go
-RUN go get -u github.com/go-sql-driver/mysql
-RUN go get github.com/gorilla/mux
 
-RUN go build -o /app/Contenedores/aplicacionGolang/aplicacion/aplicacion /app/Contenedores/aplicacionGolang/aplicacion/
+# go mod init myproject
+RUN go mod init /app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go
+#go mod init github.com/miusuariodegit/Contenedores
+RUN go get -u github.com/go-sql-driver/mysql
+#go get -u github.com/go-sql-driver/mysql
+RUN go get github.com/gorilla/mux
+#get -u github.com/go-sql-driver/mysql
+
+#RUN go build -o /app/Contenedores/aplicacionGolang/aplicacion/aplicacion /app/Contenedores/aplicacionGolang/aplicacion/
 CMD ["go","run","/app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go"]
