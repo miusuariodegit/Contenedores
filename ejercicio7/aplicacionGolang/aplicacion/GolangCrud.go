@@ -33,10 +33,10 @@ func headers(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 
-    http.HandleFunc("/user", createUserHandler).Methods("POST")
-    http.HandleFunc("/user/{id}", getUserHandler).Methods("GET")
-    http.HandleFunc("/user/{id}", updateUserHandler).Methods("PUT")
-    http.HandleFunc("/user/{id}", deleteUserHandler).Methods("DELETE")
+    http.HandleFunc("/user1/", createUserHandler).Methods("POST")
+    http.HandleFunc("/user2/", getUserHandler).Methods("GET")
+    http.HandleFunc("/user3/", updateUserHandler).Methods("PUT")
+    http.HandleFunc("/user4/", deleteUserHandler).Methods("DELETE")
     http.HandleFunc("/hello", hello)
     http.HandleFunc("/headers", headers)
 	log.Println("Server listening on :8090")
