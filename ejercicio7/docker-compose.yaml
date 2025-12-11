@@ -61,22 +61,25 @@ services:
       MYSQL_PASS: mipassword
     depends_on:
       - db
-  wordpress:
+  
+  web_golang:
+    # Build the tomcat image from the Dockerfile in the current directory
+    build: 
+      context: ./aplicacionGolang
+      dockerfile: Dockerfile
+      no_cache: true
+    container_name: web_golang
+    ports:
+      - "8090:8090"
+    environment:
+      # Use 'db' as the hostname, which is resolved by Docker's internal DNS
+      MYSQL_URL: jdbc:mysql://db:3306/gocrud_app?autoReconnect=true&useSSL=false
+      MYSQL_USER: usuario
+      MYSQL_PASS: mipassword
     depends_on:
       - db
-    image: wordpress:latest
-    volumes:
-      - wordpress_data:/var/www/html
-    ports:
-      - '3555:80'
-    restart: always
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: usuario
-      WORDPRESS_DB_PASSWORD: mipassword
-      WORDPRESS_DB_NAME: wordpress
-
+  
 
 volumes:
   db_persitence: {}
-  wordpress_data: {}
+  
