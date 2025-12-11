@@ -18,7 +18,7 @@ RUN git clone https://github.com/miusuariodegit/Contenedores.git
 RUN go mod init github.com/miusuariodegit/Contenedores/aplicacionGolang/aplicacion
 
 RUN go mod download
-RUN cp /app/Contenedores/aplicacionGolang/aplicacion/GolangCrud.go /app/GolangCrud.go 
+RUN cp /app/Contenedores/aplicacionGolang/aplicacion/GolangHello.go /app/GolangHello.go 
 
 RUN go build -o main .
 
