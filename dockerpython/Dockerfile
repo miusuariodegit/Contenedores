@@ -9,11 +9,11 @@ RUN python3 -m venv env
 ENV PATH="/app/env/bin:$PATH"
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
-RUN pip install --no-cache-dir -r ./Contenedores/ejercicio6/aplicacion/requirements.txt
+RUN pip install --no-cache-dir -r ./Contenedores/dockerpython/aplicacion/requirements.txt
 
 EXPOSE 5600
 
-CMD ["python", "./Contenedores/ejercicio6/aplicacion/run.py"]
+CMD ["python", "./Contenedores/dockerpython/aplicacion/run.py"]
 
 
 
@@ -23,16 +23,16 @@ CMD ["python", "./Contenedores/ejercicio6/aplicacion/run.py"]
 #RUN git clone https://github.com/miusuariodegit/Contenedores.git
 #RUN python3 -m venv env
 ##RUN . env/bin/activate && pip install --upgrade pip 
-#RUN pip install -r ./Contenedores/ejercicio6/aplicacion/requirements.txt 
-#CMD ["/bin/bash", "-c", ". env/bin/activate && pip install --upgrade pip && python ./Contenedores/ejercicio6/aplicacion/run.py"]
-##CMD ["python3", "./Contenedores/ejercicio6/aplicacion/run.py"]
+#RUN pip install -r ./Contenedores/dockerpython/aplicacion/requirements.txt 
+#CMD ["/bin/bash", "-c", ". env/bin/activate && pip install --upgrade pip && python ./Contenedores/dockerpython/aplicacion/run.py"]
+##CMD ["python3", "./Contenedores/dockerpython/aplicacion/run.py"]
 
 
 
 
 #RUN python3 -m venv env
 #RUN source env/bin/activate 
-#RUN python3 -m pip install -r ./Contenedores/ejercicio6/aplicacion/requirements.txt
+#RUN python3 -m pip install -r ./Contenedores/dockerpython/aplicacion/requirements.txt
 
 #--------------------------------------
 
@@ -54,8 +54,8 @@ CMD ["python", "./Contenedores/ejercicio6/aplicacion/run.py"]
 #RUN python3 -m venv /opt/venv
 #ENV VIRTUAL_ENV=/opt/venv
 #ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-#RUN python3 -m pip install -r ./Contenedores/ejercicio6/aplicacion/requirements.txt
+#RUN python3 -m pip install -r ./Contenedores/dockerpython/aplicacion/requirements.txt
 
-#CMD ["python", "./Contenedores/ejercicio6/aplicacion/run.py"] 
+#CMD ["python", "./Contenedores/dockerpython/aplicacion/run.py"] 
 
 #hasta aqui
