@@ -15,12 +15,12 @@ WORKDIR /app
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
 
-RUN go mod init github.com/miusuariodegit/Contenedores/ejercicio7/aplicacionGolang/aplicacion
+RUN go mod init github.com/miusuariodegit/Contenedores/dockerCompendio/aplicacionGolang/aplicacion
 #RUN go get -u github.com/go-sql-driver/mysql
 #RUN go get github.com/gorilla/mux
 
 RUN go mod download
-RUN cp /app/Contenedores/ejercicio7/aplicacionGolang/aplicacion/GolangCrud.go /app/GolangCrud.go 
+RUN cp /app/Contenedores/dockerCompendio/aplicacionGolang/aplicacion/GolangCrud.go /app/GolangCrud.go 
 
 RUN go build -o main .
 

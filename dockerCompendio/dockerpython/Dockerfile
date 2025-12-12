@@ -8,10 +8,10 @@ RUN python3 -m venv env
 ENV PATH="/app/env/bin:$PATH"
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git
-RUN pip install --no-cache-dir -r ./Contenedores/ejercicio6/aplicacion/requirements.txt
+RUN pip install --no-cache-dir -r ./Contenedores/dockerCompendio/dockerpython/aplicacion/requirements.txt
 
 EXPOSE 5600
 
-CMD ["python", "./Contenedores/ejercicio6/aplicacion/run.py"]
+CMD ["python", "./Contenedores/dockerCompendio/dockerpython/aplicacion/run.py"]
 
 
