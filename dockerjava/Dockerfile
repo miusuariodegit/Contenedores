@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y git
 
 RUN git clone https://github.com/miusuariodegit/Contenedores.git /repositorio
 
-RUN cp /repositorio/dockerjava/aplicacion/PaginaElectronicos.war /usr/local/tomcat/webapps/PaginaElectronicos.war
+RUN cp /repositorio/aplicacionJava/PaginaElectronicos.war /usr/local/tomcat/webapps/PaginaElectronicos.war
 
 EXPOSE 8080
 
