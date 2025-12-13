@@ -7,8 +7,9 @@ services:
       MYSQL_DATABASE: crud
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
+    command: --port=3308   
     ports:
-      - "3306:3306"
+      - "3308:3308"
     volumes:
       - ./mysql-init-files:/docker-entrypoint-initdb.d 
       - db_data_php:/var/lib/mysql 
@@ -20,9 +21,9 @@ services:
       no_cache: true
     container_name: php_app
     ports:
-      - "80:80"
+      - "81:80"
     environment:
-      MYSQL_URL: jdbc:mysql://mysql_db_php:3306/crud?autoReconnect=true&useSSL=false
+      MYSQL_URL: jdbc:mysql://mysql_db_php:3308/crud?autoReconnect=true&useSSL=false
       MYSQL_USER: usuario
       MYSQL_PASS: mipassword
     depends_on:
