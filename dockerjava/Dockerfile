@@ -8,10 +8,10 @@ RUN apt-get update && apt-get install -y git
 RUN git clone https://github.com/miusuariodegit/Contenedores.git /repositorio
 
 #Se copia la aplicacion web en el directorio de aplicaciones de tomcat
-RUN cp /repositorio/aplicacionJava/PaginaElectronicos.war /usr/local/tomcat/webapps/PaginaElectronicos.war
+RUN cp /repositorio/aplicacionJavaPuerto3307/PaginaElectronicos.war /usr/local/tomcat/webapps/PaginaElectronicos.war
 
-#Se expone el puerto 8080
-EXPOSE 8080
+#Se expone el puerto 8081
+EXPOSE 8081
 
 #Se ejecuta el tomcat
 CMD ["catalina.sh", "run"]
