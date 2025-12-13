@@ -1,7 +1,7 @@
 services:
-  db:
-    image: mysql:8.0 # Using a recent stable version of MySQL
-    container_name: mysql_db
+  mysql_db_python:
+    image: mysql:8.0
+    container_name: mysql_db_python
     environment:
       MYSQL_ROOT_PASSWORD: mipassword
       MYSQL_DATABASE: crud_python
@@ -11,10 +11,9 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql-init-files:/docker-entrypoint-initdb.d 
-      - db_python_app:/var/lib/mysql # Persistent storage for MySQL data
+      - db_python_app_single:/var/lib/mysql # Persistent storage for MySQL data
 
   web:
-    # Build the tomcat image from the Dockerfile in the current directory
     build: 
       context: .
       dockerfile: Dockerfile
@@ -23,12 +22,11 @@ services:
     ports:
       - "5600:5600"
     environment:
-      # Use 'db' as the hostname, which is resolved by Docker's internal DNS
-      MYSQL_URL: jdbc:mysql://db:3306/crud_python?autoReconnect=true&useSSL=false
+      MYSQL_URL: jdbc:mysql://mysql_db_python:3306/crud_python?autoReconnect=true&useSSL=false
       MYSQL_USER: usuario
       MYSQL_PASS: mipassword
     depends_on:
-      - db
+      - mysql_db_python
 
 volumes:
-  db_python_app:
+  db_python_app_single:
