@@ -1,0 +1,67 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: mipassword
+      MYSQL_DATABASE: crud_python
+      MYSQL_USER: usuario             
+      MYSQL_PASSWORD: mipassword 
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-init-files:/docker-entrypoint-initdb.d 
+      - db_persitence_compendio:/var/lib/mysql 
+
+  python_app_compendio:
+    image: dockerdepruebas/dockercompendio-python_app_compendio
+    container_name: python_app_compendio
+    ports:
+      - "5600:5600"
+    environment:
+      MYSQL_URL: jdbc:mysql://db:3306/crud_python?autoReconnect=true&useSSL=false
+      MYSQL_USER: usuario
+      MYSQL_PASS: mipassword
+    depends_on:
+      - db
+
+  php_app_compendio:
+    image: dockerdepruebas/dockercompendio-php_app_compendio  
+    container_name: php_app_compendio
+    ports:
+      - "80:80"
+    environment:
+      MYSQL_URL: jdbc:mysql://db:3306/crud?autoReconnect=true&useSSL=false
+      MYSQL_USER: usuario
+      MYSQL_PASS: mipassword
+    depends_on:
+      - db
+
+  tomcat_app_compendio:
+    image: dockerdepruebas/dockercompendio-tomcat_app_compendio:latest
+    container_name: tomcat_app_compendio
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_URL: jdbc:mysql://db:3306/productosdb?autoReconnect=true&useSSL=false
+      MYSQL_USER: usuario
+      MYSQL_PASS: mipassword
+    depends_on:
+      - db
+  
+  web_golang_compendio:
+    image: dockerdepruebas/dockercompendio-web_golang_compendio 
+    container_name: web_golang_compendio
+    ports:
+      - "8090:8090"
+    environment:
+      MYSQL_URL: jdbc:mysql://db:3306/gocrud_app?autoReconnect=true&useSSL=false
+      MYSQL_USER: usuario
+      MYSQL_PASS: mipassword
+    depends_on:
+      - db
+  
+
+volumes:
+  db_persitence_compendio: {}
+  
