@@ -50,8 +50,8 @@ RUN apt update && apt install -y ca-certificates curl nano  && \
 #se copia el archivo compilado al directorio /app
 COPY --from=builder /app/main .
 
-#se expone el puerto 8090
-EXPOSE 8090
+#se expone el puerto 8091
+EXPOSE 8091
 
 #se ejecuta la aplicacion
 CMD ["./main"]
