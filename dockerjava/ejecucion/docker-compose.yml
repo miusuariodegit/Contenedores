@@ -7,8 +7,9 @@ services:
       MYSQL_DATABASE: productosdb
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
+    command: --port=3307   
     ports:
-      - "3306:3306"
+      - "3307:3307"
     volumes:
       - ./mysql-init-files:/docker-entrypoint-initdb.d 
       - db_data_tomcat:/var/lib/mysql # Persistent storage for MySQL data
@@ -17,9 +18,9 @@ services:
     image: dockerdepruebas/dockerjava-tomcat_app_simple
     container_name: tomcat_app_simple
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
-      MYSQL_URL: jdbc:mysql://mysql_db_tomcat:3306/productosdb?autoReconnect=true&useSSL=false
+      MYSQL_URL: jdbc:mysql://mysql_db_tomcat:3307/productosdb?autoReconnect=true&useSSL=false
       MYSQL_USER: usuario
       MYSQL_PASS: mipassword
     depends_on:

@@ -7,8 +7,9 @@ services:
       MYSQL_DATABASE: productosdb
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
+    command: --port=3307  
     ports:
-      - "3307:3306"
+      - "3307:3307"
     volumes:
       - ./mysql-init-files:/docker-entrypoint-initdb.d 
       - db_data_tomcat:/var/lib/mysql # Persistent storage for MySQL data
