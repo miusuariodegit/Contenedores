@@ -1,7 +1,7 @@
 services:
-  db:
+  mysql_db_tomcat:
     image: mysql:8.0 # Using a recent stable version of MySQL
-    container_name: mysql_db
+    container_name: mysql_db_tomcat
     environment:
       MYSQL_ROOT_PASSWORD: mipassword
       MYSQL_DATABASE: productosdb
@@ -11,24 +11,24 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql-init-files:/docker-entrypoint-initdb.d 
-      - db_data:/var/lib/mysql # Persistent storage for MySQL data
+      - db_data_tomcat:/var/lib/mysql # Persistent storage for MySQL data
 
-  web:
+  tomcat_app_simple:
     # Build the tomcat image from the Dockerfile in the current directory
     build: 
       context: .
       dockerfile: Dockerfile
       no_cache: true
-    container_name: tomcat_app
+    container_name: tomcat_app_simple
     ports:
       - "8080:8080"
     environment:
-      # Use 'db' as the hostname, which is resolved by Docker's internal DNS
-      MYSQL_URL: jdbc:mysql://db:3306/productosdb?autoReconnect=true&useSSL=false
+      # Use 'mysql_db_tomcat' as the hostname, which is resolved by Docker's internal DNS
+      MYSQL_URL: jdbc:mysql://mysql_db_tomcat:3306/productosdb?autoReconnect=true&useSSL=false
       MYSQL_USER: usuario
       MYSQL_PASS: mipassword
     depends_on:
-      - db
+      - mysql_db_tomcat
 
 volumes:
-  db_data:
+  db_data_tomcat:
