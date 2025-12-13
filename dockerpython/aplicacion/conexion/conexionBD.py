@@ -5,8 +5,8 @@ from mysql.connector import Error
 config = {
     'user': 'usuario',
     'password': 'mipassword',
-    'host': 'mysql_db_python',  
-    'port': 3308,         
+    'host': 'mysql_db_python_single',  
+    'port': 3310,         
     'database': 'crud_python',
 }
 
