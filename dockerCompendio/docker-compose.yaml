@@ -1,79 +1,63 @@
 services:
   db:
-    image: mysql:8.0
+    image: mysql:8.0 #Seleccionamos la imagen de mysql 8.0 del repositorio de DcokerHub
     container_name: mysql_db
-    environment:
+    environment: #establecemos las variables de ambiente 
       MYSQL_ROOT_PASSWORD: mipassword
       MYSQL_DATABASE: crud_python
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
-    ports:
+    ports: #exponemos el puerto 3306
       - "3306:3306"
     volumes:
-      - ./mysql-init-files:/docker-entrypoint-initdb.d 
-      - db_persitence_compendio:/var/lib/mysql 
+      - ./mysql-init-files:/docker-entrypoint-initdb.d  #Ruta para inicializar los archivos .SQL
+      - db_persitence_compendio:/var/lib/mysql # volumen de datos de MYSQL
 
-  python_app_compendio:
+  python_app_compendio: # Construccion de la aplicacion de Python
     build: 
       context: ./dockerpython
       dockerfile: Dockerfile
-      no_cache: true
+      no_cache: true # eliminamos el cache para tener una construccion limpia
     container_name: python_app_compendio
-    ports:
+    ports: #exponemos el puerto 5600
       - "5600:5600"
-    environment:
-      MYSQL_URL: jdbc:mysql://db:3306/crud_python?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
     depends_on:
-      - db
+      - db # se establece que utiliza la el contenedor de MYSQL
 
-  php_app_compendio:
+  php_app_compendio: # construccion de la aplicacion de PHP
     build: 
       context: ./dockerphp
-      dockerfile: Dockerfile
-      no_cache: true
+      dockerfile: Dockerfile 
+      no_cache: true # eliminamos el cache para tener una construccion limpia
     container_name: php_app_compendio
     ports:
       - "80:80"
-    environment:
-      MYSQL_URL: jdbc:mysql://db:3306/crud?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
     depends_on:
-      - db
+      - db # se establece que utiliza la el contenedor de MYSQL
 
-  tomcat_app_compendio:
+  tomcat_app_compendio: # construccion de la aplicacion de java
     build: 
       context: ./dockerjava
       dockerfile: Dockerfile
-      no_cache: true
+      no_cache: true  # eliminamos el cache para tener una construccion limpia
     container_name: tomcat_app_compendio
-    ports:
+    ports: # exponemos el puerto 8080
       - "8080:8080"
-    environment:
-      MYSQL_URL: jdbc:mysql://db:3306/productosdb?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
     depends_on:
-      - db
+      - db # se establece que utiliza la el contenedor de MYSQL
   
-  web_golang_compendio:
+  web_golang_compendio: # construccion de la aplicacion de golang
     build: 
       context: ./aplicacionGolang
       dockerfile: Dockerfile
       no_cache: true
     container_name: web_golang_compendio
-    ports:
-      - "8090:8090"
-    environment:
-      MYSQL_URL: jdbc:mysql://db:3306/gocrud_app?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
-    depends_on:
-      - db
+    ports: #exponemos el puerto 8090
+      - "8090:8090" 
+    depends_on: 
+      - db # se establece que utiliza la el contenedor de MYSQL
   
 
-volumes:
+volumes: # Se declara el volumen de persistencia
   db_persitence_compendio: {}
   

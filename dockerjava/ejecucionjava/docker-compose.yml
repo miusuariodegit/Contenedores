@@ -1,30 +1,26 @@
 services:
   mysql_db_tomcat:
-    image: mysql:8.0 
+    image: mysql:8.0 #Seleccionamos la imagen de mysql 8.0 del repositorio de DcokerHub
     container_name: mysql_db_tomcat
-    environment:
+    environment: #Establecemos las variables de ambiente
       MYSQL_ROOT_PASSWORD: mipassword
       MYSQL_DATABASE: productosdb
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
-    command: --port=3307   
-    ports:
+    command: --port=3307   # Comando para indicar que se corra en el puerto 3307
+    ports: #Exponemos el puerto 3307
       - "3307:3307"
     volumes:
-      - ./mysql-init-files:/docker-entrypoint-initdb.d 
-      - db_data_tomcat:/var/lib/mysql # Persistent storage for MySQL data
+      - ./mysql-init-files:/docker-entrypoint-initdb.d  #Se establece el directorio para la inicializacion de los archivos .SQL
+      - db_data_tomcat:/var/lib/mysql #se establece el volumen donde Mysql guardara la informacion
 
-  tomcat_app_simple:
-    image: dockerdepruebas/dockerjava-tomcat_app_simple
+  tomcat_app_simple: # Pull de DockerHub de la imagen
+    image: dockerdepruebas/dockerjava-tomcat_app_simple 
     container_name: tomcat_app_simple
-    ports:
+    ports: # exponemos el puerto 8081
       - "8081:8080"
-    environment:
-      MYSQL_URL: jdbc:mysql://mysql_db_tomcat:3307/productosdb?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
-    depends_on:
+    depends_on: # se establece que utiliza la el contenedor de MYSQL
       - mysql_db_tomcat
 
-volumes:
+volumes: # Se crea el volumen de myql
   db_data_tomcat:

@@ -1,33 +1,29 @@
 services:
-  mysql_db_python_single:
-    image: mysql:8.0
+  mysql_db_python_single: 
+    image: mysql:8.0 #Seleccionamos la imagen de mysql 8.0 del repositorio de DcokerHub
     container_name: mysql_db_python_single
-    environment:
+    environment: #Establecemos las variables de ambiente
       MYSQL_ROOT_PASSWORD: mipassword
       MYSQL_DATABASE: crud_python
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword
-    command: --port=3310
-    ports:
+    command: --port=3310 # Comando para indicar que se corra en el puerto 3310
+    ports: # Exponemos el puerto 3310
       - "3310:3310"
     volumes:
-      - ./mysql-init-files:/docker-entrypoint-initdb.d 
-      - db_python_app_single:/var/lib/mysql # Persistent storage for MySQL data
+      - ./mysql-init-files:/docker-entrypoint-initdb.d # Se establece el directorio para la inicializacion de los archivos .SQL
+      - db_python_app_single:/var/lib/mysql # se establece el volumen donde Mysql guardara la informacion
 
-  python_app_single:
+  python_app_single: # construccion de la aplicacion de python
     build: 
       context: .
       dockerfile: Dockerfile
-      no_cache: true
+      no_cache: true # establecemos que no se ocupe el cache por que queremos una construccion limpia
     container_name: python_app_single
-    ports:
+    ports: # exponemos el puerto 5601
       - "5601:5600"
-    environment:
-      MYSQL_URL: jdbc:mysql://mysql_db_python_single:3310/crud_python?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
-    depends_on:
-      - mysql_db_python_single
+    depends_on: # establecemos que depende del contenedor de Mysql
+      - mysql_db_python_single # se establece que utiliza la el contenedor de MYSQL
 
-volumes:
+volumes: # Se crea el volumen de myql
   db_python_app_single:

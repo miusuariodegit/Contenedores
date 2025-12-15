@@ -1,30 +1,26 @@
 services:
   mysql_db_php:
-    image: mysql:8.0 
+    image: mysql:8.0 #Seleccionamos la imagen de mysql 8.0 del repositorio de DcokerHub
     container_name: mysql_db_php
-    environment:
+    environment: #Establecemos las variables de ambiente
       MYSQL_ROOT_PASSWORD: mipassword
       MYSQL_DATABASE: crud
       MYSQL_USER: usuario             
       MYSQL_PASSWORD: mipassword 
-    command: --port=3308   
-    ports:
+    command: --port=3308 # Comando para indicar que se corra en el puerto 3308
+    ports: #Exponemos el puerto 3308
       - "3308:3308"
     volumes:
-      - ./mysql-init-files:/docker-entrypoint-initdb.d 
-      - db_data_php:/var/lib/mysql 
+      - ./mysql-init-files:/docker-entrypoint-initdb.d #Se establece el directorio para la inicializacion de los archivos .SQL
+      - db_data_php:/var/lib/mysql #se establece el volumen donde Mysql guardara la informacion
 
-  php_app_simple:
+  php_app_simple: # Pull de DockerHub de la imagen
     image: dockerdepruebas/dockerphp-web
     container_name: php_app_simple
-    ports:
+    ports: # exponemos el puerto 81
       - "81:80"
-    environment:
-      MYSQL_URL: jdbc:mysql://mysql_db_php:3308/crud?autoReconnect=true&useSSL=false
-      MYSQL_USER: usuario
-      MYSQL_PASS: mipassword
     depends_on:
-      - mysql_db_php
+      - mysql_db_php # se establece que utiliza la el contenedor de MYSQL
 
-volumes:
+volumes: # Se crea el volumen de myql
   db_data_php:
